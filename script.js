@@ -1,15 +1,20 @@
 
-function getHumanChoice (choices) {
+const choices = ["rock", "paper", "scissors"];
+
+
+function getHumanChoice () {
     let humanInputChoice = prompt("Enter your Choice (rock, paper or scissors): ");
     return humanInputChoice;
-}
+};
 
 
-// function getComputerChoice (choices) {
-//     const randomChoice = Math.floor(Math.random() * choices.length);
-//     const randomElement = choices[randomChoice];
-//     return randomElement;
-// };    
+
+
+function getComputerChoice () {
+    const randomChoice = Math.floor(Math.random() * choices.length);
+    const randomElement = choices[randomChoice];
+    return randomElement;
+};    
 
 
 function playGame() {
@@ -22,10 +27,6 @@ function playGame() {
 
     function playRound(humanSelection, computerSelection) {
 
-        const choices = ["rock", "paper", "scissors"];
-
-        const randomIndex = Math.floor(Math.random() * choices.length);
-        const computerSelection = choices[randomIndex];
 
             const outcome = {
                 rock: {rock: "It's a tie!", paper: "You lose! Paper beats rock!", scissors: "You win! rock beats scissors"},
@@ -44,10 +45,8 @@ function playGame() {
             if (outcomeMessage) {
                 if (outcomeMessage.includes("win")) { 
                     result.winner = "human";
-                    humanScore++;
                 } else if (outcomeMessage.includes("lose")) {
                     result.winner = "computer";
-                    computerScore++;
                 };
 
                 return result;
@@ -55,13 +54,16 @@ function playGame() {
             };
         };
 
-        while (humanScore < maxRounds && computerScore < maxRounds) {
+        while (roundsPlayed < maxRounds) {
 
-            const humanSelection = prompt("Enter your choice (rock, paper or scissors): ")
-            
+            const humanSelection = getHumanChoice();
+            const computerSelection = getComputerChoice();
+
 
             const roundResult = playRound(humanSelection, computerSelection);
             roundsPlayed++;
+
+            console.log(roundResult.message);
 
             if (roundResult.winner == "human") {
                 humanScore++;
@@ -69,12 +71,12 @@ function playGame() {
                 computerScore++;
             }
         
-            return {
-                humanScore,
-                computerScore,
-                roundsPlayed
-            };
-};
+        };
+        return {
+            humanScore,
+            computerScore,
+            roundsPlayed
+        };
 };
 
 
